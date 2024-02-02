@@ -1,26 +1,29 @@
 version: '3'
 services:
-  mysql:
-    build: ./mysql
-    ports: 
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=***
+  # mysql:
+  #   build: ./mysql
+  #   ports: 
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=***
+  #   restart: always
+  # redis:
+  #   image: redis:3.2
+  #   restart: always
+  detect.srv:
+    build: .
     restart: always
-  redis:
-    image: redis:3.2
-    restart: always
-  flask:
-    build: ./flask
     ports:
-     - "5000:5000"
-    links: 
-     - mysql:mysql  
-     - redis:redis-server 
-    restart: always
-  nginx: 
-    build: ./nginx 
-    ports: 
-      - "80:80" 
-    links: 
-     - flask
+      - "9527:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+    command: flask run --host=0.0.0.0
+  # nginx: 
+  #   build: ./nginx 
+  #   ports: 
+  #     - "80:80" 
+  #   links: 
+  #    - flask

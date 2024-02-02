@@ -20,7 +20,7 @@ def detect_language():
     
     try:
         language = detect(text)
-        logger.info(f"oriText:{text},lang:{language}\n")
+        logger.info(f"oriText:{text},lang:{language}")
         return jsonify({'language': language}), 200
     except Exception as e:
         logger.error(f"detect fail, err:{str(e)}")
