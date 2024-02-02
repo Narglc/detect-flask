@@ -1,0 +1,31 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "simple": {"format": "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)d][%(funcName)s] - %(message)s"}
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "ERROR",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+        "default": {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filename": "logs/detect.srv.log",
+            "encoding": "utf8",
+            "when": "D",
+            "interval": 1,
+            "backupCount": 30
+        }
+    },
+    "loggers": {
+        "base": {
+            "handlers": ["console", "default"],
+            "level": "DEBUG"
+        }
+    }
+}
